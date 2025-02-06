@@ -1,100 +1,144 @@
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="bg-gray-50 min-h-screen flex flex-col">
+      {/* Hero Section */}
+      <section className="bg-primary text-white flex flex-col items-center justify-center text-center py-20 px-6">
+        <h1 className="text-4xl sm:text-5xl font-bold mb-6">
+          Generate AI-Powered Content in Seconds
+        </h1>
+        <p className="text-xl mb-8">
+          Unlock the power of AI to create high-quality content effortlessly.
+          Whether you're writing blog posts, articles, or social media content,
+          our AI tool does it all.
+        </p>
+        <Button className="text-black bg-secondary px-6 py-3 rounded-lg hover:bg-primary-dark transition duration-300">
+          Get Started
+        </Button>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Features Section */}
+      <section className="py-16 px-6 text-center">
+        <h2 className="text-3xl font-semibold mb-10">
+          Why Choose Our AI Content Generator?
+        </h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Fast and Efficient</h3>
+            <p className="text-gray-700">
+              Generate articles, blogs, and more in just a few clicks. Save time
+              and effort with our AI-powered content generation.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">High-Quality Content</h3>
+            <p className="text-gray-700">
+              Our AI ensures the content is relevant, engaging, and tailored to
+              your needs. No more generic or irrelevant text.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-xl font-semibold mb-4">Customizable Outputs</h3>
+            <p className="text-gray-700">
+              Adjust the tone, style, and complexity of the content to fit your
+              specific requirements. Get content your way.
+            </p>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="bg-gray-100 py-16 px-6 text-center">
+        <h2 className="text-3xl font-semibold mb-10">How It Works</h2>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div className="p-6">
+            <Image
+              src="/step1.png"
+              alt="Step 1"
+              width={150}
+              height={150}
+              className="mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-4">
+              Step 1: Input Your Idea
+            </h3>
+            <p className="text-gray-700">
+              Tell the AI what you need. It could be a blog post, social media
+              caption, or anything else.
+            </p>
+          </div>
+          <div className="p-6">
+            <Image
+              src="/step2.png"
+              alt="Step 2"
+              width={150}
+              height={150}
+              className="mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-4">
+              Step 2: Generate Content
+            </h3>
+            <p className="text-gray-700">
+              Our AI works its magic to produce the content in a matter of
+              seconds.
+            </p>
+          </div>
+          <div className="p-6">
+            <Image
+              src="/step3.png"
+              alt="Step 3"
+              width={150}
+              height={150}
+              className="mx-auto mb-4"
+            />
+            <h3 className="text-xl font-semibold mb-4">
+              Step 3: Review and Edit
+            </h3>
+            <p className="text-gray-700">
+              Review and tweak the content to match your style and needs before
+              using it.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action Section */}
+      <section className="bg-primary text-white py-16 px-6 text-center">
+        <h2 className="text-3xl font-semibold mb-6">
+          Start Creating with AI Today
+        </h2>
+        <p className="text-xl mb-8">
+          Don't waste any more time writing content manually. Get started now
+          and let AI do the heavy lifting.
+        </p>
+        <Button className="bg-secondary text-black px-6 py-3 rounded-lg hover:bg-primary-dark transition duration-300">
+          Get Started
+        </Button>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-800 text-white py-6 px-6 text-center">
+        <p>
+          &copy; {new Date().getFullYear()} AI Content Generator. All Rights
+          Reserved.
+        </p>
+        <div className="mt-4">
+          <Link
+            href="/privacy-policy"
+            className="text-gray-400 hover:text-white mx-3"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href="/terms-of-service"
+            className="text-gray-400 hover:text-white mx-3"
+          >
+            Terms of Service
+          </Link>
+        </div>
       </footer>
     </div>
   );
