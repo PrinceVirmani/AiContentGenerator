@@ -1,11 +1,12 @@
 "use client";
+
 import React, { useContext, useState } from "react";
 import FormSection from "../_components/FormSection";
 import OutputSection from "../_components/OutputSection";
 import { TEMPLATE } from "../../_components/TemplateListSection";
 import Templates from "@/app/(data)/Templates";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Router } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { chatSession } from "@/utils/Aimodal";
 import { db } from "@/utils/db";
@@ -23,33 +24,34 @@ interface PROPS {
   };
 }
 
-function CreateNewContent(props: PROPS) {
+// If you're using SSR or static generation, ensure props are passed down correctly
+export const getServerSideProps = async ({ params }: any) => {
+  return {
+    props: {
+      params,
+    },
+  };
+};
+
+function CreateNewContent({ params }: PROPS) {
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
-    (item) => item.slug == props.params["template-slug"]
+    (item) => item.slug == params["template-slug"]
   );
 
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>();
 
   const { user } = useUser();
-
   const router = useRouter();
 
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
-
   const { userSubscription, setUserSubscription } = useContext(
     UserSubscriptionContext
   );
-
   const { updateCrediUsage, setUpdateCreditUsage } = useContext(
     UpdateCreditUsageContext
   );
 
-  /**
-   * Used to generate content from AI
-   * @param formData
-   * @returns
-   */
   const GenerateAiContent = async (formData: any) => {
     if (totalUsage >= 10000 && !userSubscription) {
       router.push("/dashboard/billing");
@@ -59,18 +61,14 @@ function CreateNewContent(props: PROPS) {
     setLoading(true);
 
     const SelectedPrompt = selectedTemplate?.aiPrompt;
-
     const finalAiPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
 
     const result = await chatSession.sendMessage(finalAiPrompt);
-
-    // console.log(result.response.text());
     setAiOutput(result?.response.text());
 
     await SaveInDb(formData, selectedTemplate?.slug, result?.response.text());
 
     setLoading(false);
-
     setUpdateCreditUsage(Date.now());
   };
 
@@ -94,7 +92,6 @@ function CreateNewContent(props: PROPS) {
     <div className="p-10">
       <Link href={"/dashboard"}>
         <Button>
-          {" "}
           <ArrowLeft /> Back
         </Button>
       </Link>
@@ -105,7 +102,7 @@ function CreateNewContent(props: PROPS) {
           userFormInput={(v: any) => GenerateAiContent(v)}
           loading={loading}
         />
-        {/* Output section */}
+        {/* Output Section */}
         <div className="col-span-2">
           <OutputSection aiOutput={aiOutput} />
         </div>
