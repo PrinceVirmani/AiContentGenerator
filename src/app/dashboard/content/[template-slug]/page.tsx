@@ -5,7 +5,7 @@ import OutputSection from "../_components/OutputSection";
 import { TEMPLATE } from "../../_components/TemplateListSection";
 import Templates from "@/app/(data)/Templates";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Router } from "lucide-react";
 import Link from "next/link";
 import { chatSession } from "@/utils/Aimodal";
 import { db } from "@/utils/db";
@@ -23,25 +23,33 @@ interface PROPS {
   };
 }
 
-const CreateNewContent = ({ params }: PROPS) => {
+function CreateNewContent(props: PROPS) {
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
-    (item) => item.slug == params["template-slug"]
+    (item) => item.slug == props.params["template-slug"]
   );
 
   const [loading, setLoading] = useState(false);
   const [aiOutput, setAiOutput] = useState<string>();
 
   const { user } = useUser();
+
   const router = useRouter();
 
   const { totalUsage, setTotalUsage } = useContext(TotalUsageContext);
+
   const { userSubscription, setUserSubscription } = useContext(
     UserSubscriptionContext
   );
+
   const { updateCrediUsage, setUpdateCreditUsage } = useContext(
     UpdateCreditUsageContext
   );
 
+  /**
+   * Used to generate content from AI
+   * @param formData
+   * @returns
+   */
   const GenerateAiContent = async (formData: any) => {
     if (totalUsage >= 10000 && !userSubscription) {
       router.push("/dashboard/billing");
@@ -51,14 +59,18 @@ const CreateNewContent = ({ params }: PROPS) => {
     setLoading(true);
 
     const SelectedPrompt = selectedTemplate?.aiPrompt;
+
     const finalAiPrompt = JSON.stringify(formData) + ", " + SelectedPrompt;
 
     const result = await chatSession.sendMessage(finalAiPrompt);
+
+    // console.log(result.response.text());
     setAiOutput(result?.response.text());
 
     await SaveInDb(formData, selectedTemplate?.slug, result?.response.text());
 
     setLoading(false);
+
     setUpdateCreditUsage(Date.now());
   };
 
@@ -82,6 +94,7 @@ const CreateNewContent = ({ params }: PROPS) => {
     <div className="p-10">
       <Link href={"/dashboard"}>
         <Button>
+          {" "}
           <ArrowLeft /> Back
         </Button>
       </Link>
@@ -99,6 +112,6 @@ const CreateNewContent = ({ params }: PROPS) => {
       </div>
     </div>
   );
-};
+}
 
 export default CreateNewContent;
