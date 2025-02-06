@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useContext, useState } from "react";
 import FormSection from "../_components/FormSection";
 import OutputSection from "../_components/OutputSection";
@@ -24,16 +23,7 @@ interface PROPS {
   };
 }
 
-// If you're using SSR or static generation, ensure props are passed down correctly
-export const getServerSideProps = async ({ params }: any) => {
-  return {
-    props: {
-      params,
-    },
-  };
-};
-
-function CreateNewContent({ params }: PROPS) {
+const CreateNewContent = ({ params }: PROPS) => {
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
     (item) => item.slug == params["template-slug"]
   );
@@ -102,13 +92,13 @@ function CreateNewContent({ params }: PROPS) {
           userFormInput={(v: any) => GenerateAiContent(v)}
           loading={loading}
         />
-        {/* Output Section */}
+        {/* Output section */}
         <div className="col-span-2">
           <OutputSection aiOutput={aiOutput} />
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CreateNewContent;
