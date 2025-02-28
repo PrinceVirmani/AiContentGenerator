@@ -9,6 +9,10 @@ export default {
 	],
 	theme: {
 		extend: {
+			fontFamily: {
+				geist: ['Geist', 'sans-serif'],
+				geistMono: ['Geist Mono', 'monospace'],
+			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
