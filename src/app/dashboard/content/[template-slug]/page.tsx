@@ -19,13 +19,15 @@ import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageConte
 import { useParams } from "next/navigation";
 import { FC } from "react";
 
-interface PROPS {
-  params: {
-    "template-slug": string;
-  };
-}
+// import PageProps from "next"; // Import PageProps
 
-function CreateNewContent(props: PROPS) {
+// interface PROPS extends PageProps {
+//   params: {
+//     "template-slug": string;
+//   };
+// }
+
+function CreateNewContent() {
   const params = useParams(); // Next.js way of handling dynamic route parameters
   const templateSlug = params["template-slug"] as string;
 
