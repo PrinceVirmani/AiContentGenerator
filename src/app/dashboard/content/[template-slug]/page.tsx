@@ -5,7 +5,7 @@ import OutputSection from "../_components/OutputSection";
 import { TEMPLATE } from "../../_components/TemplateListSection";
 import Templates from "@/app/(data)/Templates";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Router } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { chatSession } from "@/utils/Aimodal";
 import { db } from "@/utils/db";
@@ -13,22 +13,13 @@ import { AIOutput } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import moment from "moment";
 import { TotalUsageContext } from "@/app/(context)/TotalUsageContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { UserSubscriptionContext } from "@/app/(context)/UserSubscriptionContext";
 import { UpdateCreditUsageContext } from "@/app/(context)/UpdateCreditUsageContext";
-import { useParams } from "next/navigation";
-import { FC } from "react";
 
-// import PageProps from "next"; // Import PageProps
-
-// interface PROPS extends PageProps {
-//   params: {
-//     "template-slug": string;
-//   };
-// }
-
+// No need to extend PageProps for client components
 function CreateNewContent() {
-  const params = useParams(); // Next.js way of handling dynamic route parameters
+  const params = useParams();
   const templateSlug = params["template-slug"] as string;
 
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
