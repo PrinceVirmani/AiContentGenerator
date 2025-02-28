@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useRef } from "react";
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from "@toast-ui/react-editor";
+import React, { useEffect, useState } from "react";
+// @ts-ignore - Ignore TypeScript errors for this import
+import MDEditor from "@uiw/react-md-editor";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 
@@ -10,7 +10,9 @@ interface PROPS {
 }
 
 function OutputSection({ aiOutput }: PROPS) {
-  const editorRef = useRef<Editor | null>(null);
+  const [markdownValue, setMarkdownValue] = useState<string>(
+    "Your result will appear here"
+  );
 
   // Function to remove RTF formatting if present
   const cleanRTF = (text: string) => {
@@ -22,13 +24,10 @@ function OutputSection({ aiOutput }: PROPS) {
   };
 
   useEffect(() => {
-    if (!editorRef.current) return; // ✅ Prevents null errors
-
-    const instance = editorRef.current.getInstance?.(); // ✅ Safe function call
-    if (!instance) return;
-
     const cleanedOutput = aiOutput ? cleanRTF(aiOutput) : "";
-    instance.setMarkdown(cleanedOutput);
+    if (cleanedOutput) {
+      setMarkdownValue(cleanedOutput);
+    }
   }, [aiOutput]);
 
   return (
@@ -44,13 +43,15 @@ function OutputSection({ aiOutput }: PROPS) {
           <Copy className="w-4 h-4" /> Copy
         </Button>
       </div>
-      <Editor
-        ref={editorRef} // Using React.RefObject for the ref
-        initialValue="Your result will appear here"
-        height="600px"
-        initialEditType="markdown"
-        useCommandShortcut={true}
-      />
+      <div data-color-mode="light">
+        <MDEditor
+          value={markdownValue}
+          onChange={(val: string | undefined) => setMarkdownValue(val || "")}
+          height={600}
+          preview="preview"
+          hideToolbar={false}
+        />
+      </div>
     </div>
   );
 }
