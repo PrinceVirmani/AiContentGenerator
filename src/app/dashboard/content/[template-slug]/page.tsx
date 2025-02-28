@@ -25,7 +25,7 @@ interface PROPS {
 
 function CreateNewContent(props: PROPS) {
   const selectedTemplate: TEMPLATE | undefined = Templates?.find(
-    (item) => item.slug == props.params["template-slug"]
+    (item) => item.slug === props.params["template-slug"]
   );
 
   const [loading, setLoading] = useState(false);
